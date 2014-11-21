@@ -11,14 +11,13 @@ Node::Node()
 
 }
 
- Node::Node(int data,Node *parent):data(data),parent()
+ Node::Node(int data,Node *parent=NULL):data(data),parent(parent)
  {
      childs.clear();
  }
 
  Tree::Tree():root(NULL),current(NULL)
- {
-
+ {     
  }
 
  Node *Tree::init(int data)
@@ -37,13 +36,41 @@ Node::Node()
       current = ref;
       current->childs.resize(data.size());
 
-      for(int i = 0;i<data.size();i++)
+      for(unsigned int i = 0;i<data.size();i++)
       {
           Node *newNode = new Node(data[i]); //quien soy
           newNode->parent = current; //de donde vengo
 
-          current->childs[i] = new Node;
+          current->childs[i] = newNode;
       }
 
       return &current->childs;
   }
+
+void Tree::preorder(Node* n) //Raiz-Izquierda-Derecha
+{
+    if(n==NULL) return;
+
+    cout<<n->data<<endl;
+
+    for(unsigned int i = 0;i<n->childs.size();i++)
+    {
+        preorder(n->childs[i]);
+
+    }
+
+}
+
+void Tree::postOrden(Node* n) //Izquierda-Derecha-Raiz
+{
+    if(n==NULL) return;
+
+    for(unsigned int i = 0;i<n->childs.size();i++)
+    {
+        postOrden(n->childs[i]);
+
+
+    }
+
+     cout<<n->data<<endl;
+}

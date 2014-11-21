@@ -21,13 +21,14 @@ class Tree
 
 private:
     Node *root;
-    Node *current();
+    Node *current;
 
 public:
-    Tree();
-     Node * init(int data);
-     vector<Node*> *Tree insert(Node *ref, vector <int> data);
-
+     Tree();
+     Node* init(int data);
+     vector<Node*> *insert(Node* ref, vector <int> data);
+     void preorder(Node* n);
+     void postOrden(Node* n);
 
 };
 
