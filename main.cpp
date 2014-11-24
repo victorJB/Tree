@@ -16,7 +16,7 @@ int main()
     double dato = 0;
     int numero1 = 0; //Hijos a Insertar
 
-   //system("C://Users/Vic/Documents/Arcsoft/graph1.gv");
+   //system("C://graph1.gv");
 
      while(i != 1)
     {
@@ -91,7 +91,7 @@ int main()
             break;
 
           case 4:
-             system("C://Users/Vic/Documents/Arcsoft/graph1.gv");
+             system("C://graph1.gv");
              break;
 
           case 27:

@@ -98,8 +98,8 @@ template <class T>
   template <class T>
   void Node<T>::exportarDatos(string A,T dato)
   {
-      int i = 0;
-      int j = 0;
+      int i = 0; 
+      
       this->cadena.push_back(this->data);
       this->cadena.push_back(dato);
 
