@@ -16,46 +16,74 @@ Node::Node()
      childs.clear();
  }
 
+ int Node::getData()
+ {
+     return this->data;
+ }
+
+ vector <Node*> *Node::getChilds()
+ {
+     return &this->childs;
+ }
+
+ void Node::aumentarTamanoChilds()
+ {
+
+ }
+
+ Node *Node::getChild(int posicion)
+ {
+     return this->childs[posicion];
+ }
+
+ void Node::dimensionarChilds(unsigned int tamano)
+ {
+     this->childs.resize(tamano);
+ }
+
+ int Node::tamanoChilds()
+ {
+     unsigned int sizes = this->childs.size();
+     return sizes;
+ }
+
  Tree::Tree():root(NULL),current(NULL)
  {     
  }
 
- Node *Tree::init(int data)
+ void Tree::init(int data)
  {
      if(root==NULL)
      {
          root = new Node(data);
          current = root;
      }
-
-     return root;
  }
 
-  vector<Node*> *Tree::insert(Node *ref,vector <int> data)
+  void Tree::insert(Node *ref, vector <int> data)
   {
       current = ref;
-      current->childs.resize(data.size());
+      current->dimensionarChilds(data.size());
 
       for(unsigned int i = 0;i<data.size();i++)
       {
           Node *newNode = new Node(data[i]); //quien soy
-          newNode->parent = current; //de donde vengo
+          newNode->asignarPadre(current); //de donde vengo
 
-          current->childs[i] = newNode;
+          current->insertarChild(i,newNode);
       }
 
-      return &current->childs;
   }
 
 void Tree::preorder(Node* n) //Raiz-Izquierda-Derecha
 {
     if(n==NULL) return;
 
-    cout<<n->data<<endl;
+    cout<<n->getData()<<endl;
 
-    for(unsigned int i = 0;i<n->childs.size();i++)
+    for(int i = 0;i<n->tamanoChilds();i++)
     {
-        preorder(n->childs[i]);
+        preorder(n->getChild(i));
 
     }
 
@@ -65,12 +93,82 @@ void Tree::postOrden(Node* n) //Izquierda-Derecha-Raiz
 {
     if(n==NULL) return;
 
-    for(unsigned int i = 0;i<n->childs.size();i++)
+    for(int i = 0;i<n->tamanoChilds();i++)
     {
-        postOrden(n->childs[i]);
+        postOrden(n->getChild(i));
 
 
     }
 
-     cout<<n->data<<endl;
+     cout<<n->getData()<<endl;
 }
+
+Node* Tree::getCurrent()
+{
+    return this->current;
+}
+
+Node* Tree::getRoot()
+{
+    return this->root;
+}
+
+void Tree::insertarPorBusqueda(Node *n,int dato)
+{
+    if(n==NULL) return;
+
+    if(dato == n->getData())
+    {
+       this->insertarNuevoHijo(n);
+    }
+
+    else
+    {
+        for(int i = 0;i<n->tamanoChilds();i++)
+        {
+            cout<<"Tamano Hijos = "<<n->tamanoChilds()<<endl;
+
+            insertarPorBusqueda(n->getChild(i),dato);
+
+        }
+    }
+}
+
+void Tree::insertarNuevoHijo(Node *ref)
+{
+    current = ref;
+    cout<<"Size Childs antes de redimensionar = "<<current->tamanoChilds()<<endl;
+
+    current->dimensionarChilds(ref->tamanoChilds()+1);
+
+    cout<<"Size Childs despues de redimensionar = "<<current->tamanoChilds()<<endl;
+
+    int dato = 0;
+    cout<<"Nuevo dato a insertar: ";
+    cin>>dato;
+
+    for(unsigned int i = 0;i<1;i++)
+    {
+        Node *newNode = new Node(dato); //quien soy
+        newNode->asignarPadre(current); //de donde vengo
+
+        cout<<"Posicion en la que se insertara = "<<current->tamanoChilds()<<endl;
+
+
+        current->insertarChild(current->tamanoChilds()-1,newNode);
+    }
+}
+
+void Node::insertarChild(int position,Node* nuevoNodo)
+{
+    this->childs[position] = nuevoNodo;
+
+}
+
+void Node::asignarPadre(Node* padre)
+{
+    this->parent = padre;
+}
+
+
+

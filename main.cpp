@@ -1,45 +1,113 @@
 #include <iostream>
+#include <fstream>
 #include "tree.h"
+#include "node.h"
+#include <vector>
 
 using namespace std;
 
 int main()
 {
 
-    Tree t1;
-    Node *aux;
-    vector <Node*> *aux2;
-    vector <int> num;
+    Tree <double> t1;
+    int i = 0;
+    int counter = 0;
+    int opcion = 0;
+    double dato = 0;
+    int numero1 = 0; //Hijos a Insertar
+
+   //system("C://Users/Vic/Documents/Arcsoft/graph1.gv");
+
+     while(i != 1)
+    {
+        cout<<"0  -- Crear Nodo Padre"<<endl;
+        cout<<"1  -- Crear Hijos"<<endl;
+        cout<<"2  -- PreOrden"<<endl;
+        cout<<"3  -- PostOrden"<<endl;
+        cout<<"4  -- Ver Arbol"<<endl;
+        cout<<"27 -- Salir de la aplicacion"<<endl;
+
+        cin>>opcion;
+
+        switch(opcion)
+        {
+          case 0:
+            if(t1.getRoot() == NULL)
+            {
+               t1.init();
+
+            }
+
+            else
+                cout<<"Ya existe Nodo Padre"<<endl;
+            break;
+
+          case 1:
 
 
-    num.push_back(2);
-    num.push_back(3);
+            if(t1.getRoot() == NULL)
+                cout<<"No existe Nodo padre"<<endl;
+            else
+            {
+                cout<<"Ingresar dato a buscar : ";
+                cin>>dato;
+                cout<<"Numero de hijos a Insertar : ";
+                cin>>numero1;
 
-    aux = t1.init(1);
-    aux2 = t1.insert(aux,num);
+                for(counter = 0;counter<numero1;counter++)
+                {
+                     t1.insertarPorBusqueda(t1.getRoot(),dato);
+                }
 
-    num.clear();
-    num.push_back(4);
-    num.push_back(5);
-    num.push_back(99);
+            }
 
-    t1.insert(aux2->at(0),num);
+            break;
 
-    num.clear();
-    num.push_back(6);
-    num.push_back(7);
-    num.push_back(77);
-     num.push_back(66);
+          case 2:
+            if(t1.getRoot() == NULL)
+                cout<<"No existe Nodo padre"<<endl;
+            else
+            {
+                cout<<endl;
+                t1.preorder(t1.getRoot());
+                cout<<endl;
+            }
 
-    t1.insert(aux2->at(1),num);
+            break;
 
-    cout<<"PreOrden"<<endl;
+          case 3:
 
-    t1.preorder(aux);
+            if(t1.getRoot() == NULL)
+                cout<<"No existe Nodo padre"<<endl;
 
-    cout<<"PostOrden"<<endl;
+            else
+            {
 
-    t1.postOrden(aux);
+                cout<<endl;
+                t1.postOrden(t1.getRoot());
+                cout<<endl;
+            }
+
+            break;
+
+          case 4:
+             system("C://Users/Vic/Documents/Arcsoft/graph1.gv");
+             break;
+
+          case 27:
+            i = 1;
+            break;
+
+
+        }
+    }
+
+
+
+
+
+
+
 
 
     return 0;
