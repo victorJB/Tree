@@ -26,10 +26,6 @@ Node::Node()
      return &this->childs;
  }
 
- void Node::aumentarTamanoChilds()
- {
-
- }
 
  Node *Node::getChild(int posicion)
  {
